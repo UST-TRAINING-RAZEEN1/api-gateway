@@ -1,11 +1,11 @@
 pipeline {
 	agent any	tools {
-		maven 'mymaven’
-		jdk 'jdk’
+		maven 'mymaven'
+		jdk 'jdk'
 	}
 	stages {
 		stage('Clone'){
-			steps {git url:'https://github.com/UST-TRAINING-RAZEEN1/api-gateway', branch:'main’}			}
+			steps {git url:'https://github.com/UST-TRAINING-RAZEEN1/api-gateway', branch:'main'}			}
 		stage('Build'){
 			steps {bat "mvn clean install -DskipTests"}
 		}
