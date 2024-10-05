@@ -1,24 +1,32 @@
 pipeline {
-	agent any	tools {
-		maven 'mymaven'
-		jdk 'jdk'
-	}
-	stages {
-		stage('Clone'){
-			steps {git url:'https://github.com/UST-TRAINING-RAZEEN1/api-gateway.git', branch:'main'}			}
-		stage('Build'){
-			steps {bat "mvn clean install -DskipTests"}
-		}
-		stage('Test'){
-			steps{bat "mvn test"}		}
-		}
-		stage('Deploy') {
-			steps { 
-				bat "docker rm -f apigateway-container"
-				bat "docker rmi -f apigateway-image"
-			        bat "docker build -t apigateway-image ."
-			        bat "docker run -p 8060:8060 -d --name apigateway-container apigateway-image"
-			         }
-		}
-	}
+    agent any
+    tools {
+        maven 'mymaven'
+        jdk 'jdk'
+    }
+    stages {
+        stage('Clone') {
+            steps {
+                git url: 'https://github.com/UST-TRAINING-RAZEEN1/api-gateway.git', branch: 'main'
+            }
+        }
+        stage('Build') {
+            steps {
+                bat "mvn clean install -DskipTests"
+            }
+        }
+        stage('Test') {
+            steps {
+                bat "mvn test"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                bat "docker rm -f apigateway-container"
+                bat "docker rmi -f apigateway-image"
+                bat "docker build -t apigateway-image ."
+                bat "docker run -p 8060:8060 -d --name apigateway-container apigateway-image"
+            }
+        }
+    }
 }
