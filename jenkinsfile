@@ -5,7 +5,7 @@ pipeline {
 	}
 	stages {
 		stage('Clone'){
-			steps {git url:'https://github.com/UST-TRAINING-RAZEEN1/api-gateway', branch:'main'}			}
+			steps {git url:'https://github.com/UST-TRAINING-RAZEEN1/api-gateway.git', branch:'main'}			}
 		stage('Build'){
 			steps {bat "mvn clean install -DskipTests"}
 		}
@@ -17,7 +17,7 @@ pipeline {
 				bat "docker rm -f apigateway-container"
 				bat "docker rmi -f apigateway-image"
 			        bat "docker build -t apigateway-image ."
-			        bat "docker run -p 8090:8090 -d --name apigateway-container apigateway-image"
+			        bat "docker run -p 8060:8060 -d --name apigateway-container apigateway-image"
 			         }
 		}
 	}
