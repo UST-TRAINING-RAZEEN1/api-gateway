@@ -14,6 +14,8 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps { 
+				bat "docker rm -f apigateway-container"
+				bat "docker rmi -f apigateway-image"
 			        bat "docker build -t apigateway-image ."
 			        bat "docker run -p 8090:8090 -d --name apigateway-container apigateway-image"
 			         }
